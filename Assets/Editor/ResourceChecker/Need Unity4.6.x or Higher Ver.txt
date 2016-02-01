@@ -1,0 +1,1 @@
+如果使用Unity4.6及之后的版本，请把ResourceChecker.cs.txt文件的后缀改成.cs
