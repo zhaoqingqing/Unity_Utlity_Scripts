@@ -1,0 +1,3 @@
+Ruler 2D : Guides, Align & Layout Tools
+在AssetStore上的扩展：https://www.assetstore.unity3d.com/en/#!/content/53951
+需要Unity 5.3.1
