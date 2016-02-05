@@ -3,14 +3,14 @@ Unity 编辑器的一些扩展脚本，在每个插件的目录中都有对应�
 ##AlignEditor##
 
 工作过程中自己写的一个对齐小插件，方便在开发中对Gameobject进行排列
-
+![](https://github.com/zhaoqingqing/Unity_Editor_Scripts/blob/master/Assets/Editor/AlignEditor/AlignEditor_preview.jpg)
 ##UnityLock##
 AssetStore上的一个免费小插件，可以锁定Gameobject不可编辑
 ![](https://github.com/zhaoqingqing/Unity_Editor_Scripts/blob/master/Assets/Editor/UnityLock/UnityLock-preview.jpg)
 
 ##EditorStyleViewer##
 查看编辑器默认的样式
-
+![](https://github.com/zhaoqingqing/Unity_Editor_Scripts/blob/master/Assets/Editor/Tools/EditorStyleViewer-preview)
 
 
 ## Resource-Checker ##

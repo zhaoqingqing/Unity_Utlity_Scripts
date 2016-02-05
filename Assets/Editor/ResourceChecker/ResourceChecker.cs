@@ -802,4 +802,3 @@ public class ResourceChecker : EditorWindow {
 	}
 
 }
-*/
