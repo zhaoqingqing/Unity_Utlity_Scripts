@@ -1,13 +1,12 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 
-
 internal class StringHelper
 {
 	private static Regex RegexBr = new Regex(@"(\r\n)", RegexOptions.IgnoreCase);
 
-	public static Regex RegexFont = new Regex(@"<font color=" + "\".*?\"" + @">([\s\S]+?)</font>",GetRegexCompiledOptions());
-	
+	public static Regex RegexFont = new Regex(@"<font color=" + "\".*?\"" + @">([\s\S]+?)</font>", GetRegexCompiledOptions());
+
 	/// <summary>
 	/// 得到正则编译参数设置
 	/// </summary>

@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using SimpleJson;
-using UnityEngine;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
-
+﻿
 public class NumberHelper
 {
 	/// <summary>

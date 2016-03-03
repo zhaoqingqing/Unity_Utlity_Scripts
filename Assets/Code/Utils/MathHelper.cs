@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 using System;
 using System.Collections;
@@ -30,7 +31,7 @@ public class MathHelper
 				if (i > nMidNum)
 					nAddAngle = fAngle * ((i % nMidNum) + 1) - fAngle / 2;
 				else
-					nAddAngle = -fAngle * ((i % nMidNum) + 1) + fAngle / 2; // 除以2，是为了顶端NPC均匀排布 by KK
+					nAddAngle = -fAngle * ((i % nMidNum) + 1) + fAngle / 2; // 除以2，是为了顶端NPC均匀排布
 			}
 			else // 单数模式
 			{
@@ -52,38 +53,38 @@ public class MathHelper
 		}
 		return targetPos;
 	}
-	
-			/// <summary>
-		/// 判断字符串是否Int
-		/// </summary>
-		/// <param name="strTemp"></param>
-		/// <returns></returns>
-		public static bool IsInt(string strTemp)
-		{
-			if (string.IsNullOrEmpty(strTemp))
-			{
-				return false;
-			}
 
-			var ret = Regex.IsMatch(strTemp, @"^\d+$");
-			return ret;
+	/// <summary>
+	/// 判断字符串是否Int
+	/// </summary>
+	/// <param name="strTemp"></param>
+	/// <returns></returns>
+	public static bool IsInt(string strTemp)
+	{
+		if (string.IsNullOrEmpty(strTemp))
+		{
+			return false;
 		}
 
-		/// <summary>
-		/// 判断字符串是否float
-		/// </summary>
-		/// <param name="strTemp"></param>
-		/// <returns></returns>
-		public static bool IsDoubleOrFloat(string strTemp)
-		{
-			if (string.IsNullOrEmpty(strTemp))
-			{
-				return false;
-			}
+		var ret = Regex.IsMatch(strTemp, @"^\d+$");
+		return ret;
+	}
 
-			double num;
-			var ret = double.TryParse(strTemp, System.Globalization.NumberStyles.Float,
-				System.Globalization.NumberFormatInfo.InvariantInfo, out num);
-			return ret;
+	/// <summary>
+	/// 判断字符串是否float
+	/// </summary>
+	/// <param name="strTemp"></param>
+	/// <returns></returns>
+	public static bool IsDoubleOrFloat(string strTemp)
+	{
+		if (string.IsNullOrEmpty(strTemp))
+		{
+			return false;
 		}
+
+		double num;
+		var ret = double.TryParse(strTemp, System.Globalization.NumberStyles.Float,
+			System.Globalization.NumberFormatInfo.InvariantInfo, out num);
+		return ret;
+	}
 }

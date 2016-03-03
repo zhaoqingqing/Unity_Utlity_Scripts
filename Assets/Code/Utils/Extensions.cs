@@ -4,32 +4,102 @@ using System.Collections;
 using System.Collections.Generic;
 public static class Extensions
 {
-static public Int32 ToInt32(this string str)
+	public static Vector2 ToVector2(this Vector3 vec)
 	{
-		var ret = 0;
-		if (!string.IsNullOrEmpty(str))
-			ret=Convert.ToInt32(str);
+		return new Vector2(vec.x, vec.y);
+	}
+
+	public static byte ToByte(this string val)
+	{
+		byte ret = 0;
+		try
+		{
+			if (!string.IsNullOrEmpty(val))
+			{
+				ret = Convert.ToByte(val);
+			}
+		}
+		catch (Exception)
+		{
+		}
+		return ret;
+	}
+
+	public static long ToInt64(this string val)
+	{
+		long ret = 0;
+		try
+		{
+			if (!string.IsNullOrEmpty(val))
+			{
+				ret = Convert.ToInt64(val);
+			}
+		}
+		catch (Exception)
+		{
+		}
+		return ret;
+	}
+
+	public static float ToFloat(this string val)
+	{
+		float ret = 0;
+		try
+		{
+			if (!string.IsNullOrEmpty(val))
+			{
+				ret = Convert.ToSingle(val);
+			}
+		}
+		catch (Exception)
+		{
+		}
+		return ret;
+	}
+
+	static public Int32 ToInt32(this string str)
+	{
+		Int32 ret = 0;
+
+		try
+		{
+			if (!string.IsNullOrEmpty(str))
+			{
+				ret = Convert.ToInt32(str);
+			}
+		}
+		catch (Exception)
+		{
+		}
+		return ret;
+	}
+
+	public static Int32 ToInt32(this object obj)
+	{
+		Int32 ret = 0;
+		try
+		{
+			if (obj != null)
+			{
+				ret = Convert.ToInt32(obj);
+			}
+		}
+		catch (Exception)
+		{
+		}
 
 		return ret;
 	}
 
-	static public Int32 ToInt32(this object obj)
-	{
-		var ret = 0;
-		if (obj!=null)
-			ret= Convert.ToInt32(obj);
-
-		return ret;
-	}
 	static public string ToString(this object obj)
 	{
 		var ret = "";
 		if (obj != null)
-			ret=obj.ToString();
+			ret = obj.ToString();
 		return ret;
 	}
 
-	static public bool SetActive(this Transform trans,bool active)
+	static public bool SetActive(this Transform trans, bool active)
 	{
 		var ret = false;
 		if (trans != null)
@@ -68,9 +138,7 @@ static public Int32 ToInt32(this string str)
 	{
 		t.localPosition = new Vector3(t.localPosition.x, newY, t.localPosition.z);
 	}
-	/// <summary>
-	/// Y鍧愭爣+
-	/// </summary>
+
 	public static void SetLocalPositionYAdd(this Transform t, float newY)
 	{
 		t.localPosition = new Vector3(t.localPosition.x, t.GetLocalPositionY() + newY, t.localPosition.z);
@@ -136,24 +204,6 @@ static public Int32 ToInt32(this string str)
 		anim[anim.clip.name].speed = newSpeed;
 	}
 
-	public static Vector2 ToVector2(this Vector3 vec)
-	{
-		return new Vector2(vec.x, vec.y);
-	}
-	public static byte ToByte(this string val)
-	{
-		return string.IsNullOrEmpty(val) ? (byte)0 : Convert.ToByte(val);
-	}
-
-	public static long ToInt64(this string val)
-	{
-		return string.IsNullOrEmpty(val) ? 0 : Convert.ToInt64(val);
-	}
-	public static float ToFloat(this string val)
-	{
-		return string.IsNullOrEmpty(val) ? 0f : Convert.ToSingle(val);
-	}
-
 	/// <summary>
 	/// Get from object Array
 	/// </summary>
@@ -195,7 +245,7 @@ static public Int32 ToInt32(this string str)
 			ret = default(T);
 			if (isLog)
 			{
-				//Logger.WriteError("[GetArg] {0} args - offset: {1}", openArgs, offset);
+				//LogWriter.WriteError("[GetArg] {0} args - offset: {1}", openArgs, offset);
 			}
 		}
 
@@ -209,4 +259,5 @@ static public Int32 ToInt32(this string str)
 	//		boxCollider.size = new Vector3(widget.width, widget.height, 0);
 	//	}
 	//}
+
 }
