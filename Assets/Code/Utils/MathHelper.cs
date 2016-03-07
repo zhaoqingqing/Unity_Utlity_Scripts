@@ -87,4 +87,35 @@ public class MathHelper
 			System.Globalization.NumberFormatInfo.InvariantInfo, out num);
 		return ret;
 	}
+
+	/// <summary>
+	/// 解析(1,1,1 或11.1,10,2)为vector3
+	/// </summary>
+	/// <param name="strVector3"></param>
+	/// <param name="splitStr"></param>
+	/// <returns></returns>
+	public static Vector3 StringToVector3(string strVector3, params char[] splitStr)
+	{
+		Vector3 ret = new Vector3(0, 0, 0);
+		if (!string.IsNullOrEmpty(strVector3))
+		{
+			var strArr = strVector3.Split(splitStr);
+			if (strArr.Length == 3)
+			{
+				var x = strArr[0].Trim().ToFloat();
+				var y = strArr[1].Trim().ToFloat();
+				var z = strArr[2].Trim().ToFloat();
+				ret = new Vector3(x, y, z);
+			}
+			else
+			{
+				Debug.LogWarning("str length not 3");
+			}
+		}
+		else
+		{
+			Debug.LogWarning("str null");
+		}
+		return ret;
+	}
 }

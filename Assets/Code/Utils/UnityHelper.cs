@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
+//using System.Diagnostics;
 using DG.Tweening;
 using SimpleJson;
 using UnityEngine;
@@ -32,6 +32,113 @@ public partial class UnityHelper
 		return list;
 	}
 
+	static public void SetParticleSystemScale(ParticleSystem particleSystem, float scale)
+	{
+		particleSystem.startLifetime *= scale;
+		particleSystem.startSize *= scale;
+
+		if (particleSystem.GetComponent<ParticleEmitter>() != null)
+		{
+			particleSystem.GetComponent<ParticleEmitter>().minSize *= scale;
+			particleSystem.GetComponent<ParticleEmitter>().maxSize *= scale;
+		}
+
+		if (particleSystem.GetComponent<ConstantForce>() != null)
+		{
+			particleSystem.GetComponent<ConstantForce>().force *= scale;
+		}
+	}
+
+	static public void SetGameObjectColor(GameObject go, Color color)
+	{
+		if (go.GetComponent<Renderer>() != null)
+		{
+			if (go.GetComponent<Renderer>().sharedMaterial != null)
+				go.GetComponent<Renderer>().sharedMaterial.color = color;
+		}
+
+		Renderer[] renderers = go.GetComponentsInChildren<Renderer>();
+		foreach (Renderer renderer in renderers)
+		{
+			if (renderer.sharedMaterial != null)
+				renderer.sharedMaterial.color = color;
+		}
+	}
+	static public void Show3DModel(ref GameObject model, Transform parentTrans, Vector3 scale, Vector3 eulerAngles)
+	{
+		Vector3 position = new Vector3(0, 0, 0);
+		if (Camera.main != null)
+		{
+			float realScale = (Camera.main.orthographicSize * 2f) / Camera.main.pixelHeight;
+			model.transform.parent = parentTrans;
+			model.transform.eulerAngles = eulerAngles;
+			model.transform.localScale = scale * realScale;
+			model.transform.localPosition = position;
+			if (parentTrans.gameObject.activeSelf != true)
+			{
+				parentTrans.gameObject.SetActive(false);
+			}
+		}
+	}
+
+	static public void SetGameObjectCollider(GameObject go,bool enable)
+	{
+		Collider collider = go.GetComponent<Collider>();
+		if (collider != null)
+		{
+			collider.enabled = enable;
+		}
+
+		Collider[] colliders = go.GetComponentsInChildren<Collider>(true);
+		foreach (Collider co in colliders)
+		{
+			co.enabled = enable;
+		}
+	}
+
+	static public void SetRigidbody(GameObject go, bool isKinematic)
+	{
+		Rigidbody[] rigidBodys = go.GetComponentsInChildren<Rigidbody>();
+		foreach (Rigidbody rb in rigidBodys)
+		{
+			rb.isKinematic = isKinematic;
+		}
+	}
+
+	//获取所有的Child,排除自己
+	static public List<Transform> GetAllChildExcludeSelf(GameObject parentObj)
+	{
+		var childList = new List<Transform>();
+		if (parentObj == null)
+		{
+			Debug.LogWarning("parentObj 为null");
+			return childList;
+		}
+		var childs = parentObj.GetComponentsInChildren<Transform>(true);
+		for (int idx = 0; idx < childs.Length; idx++)
+		{
+			if (childs[idx] == parentObj.transform)
+				continue;
+			childList.Add(childs[idx]);
+		}
+		return childList;
+	}
+
+	static public GameObject GetChildByName(GameObject parentObj, string name)
+	{
+		return GetChildByName(parentObj, name, true);
+	}
+
+	static public GameObject GetChildByName(GameObject parentObj, string name, bool includeInActiveChild)
+	{
+		Transform[] childrens = parentObj.GetComponentsInChildren<Transform>(includeInActiveChild);
+		foreach (Transform child in childrens)
+		{
+			if (child.name.Contains(name))
+				return child.gameObject;
+		}
+		return null;
+	}
 	//public static void ResizeCUITableGridGameObjects(CUITableGrid uiTable, int resizeCount, GameObject templateForNew,
 	//	bool boxFixed = true)
 	//{
