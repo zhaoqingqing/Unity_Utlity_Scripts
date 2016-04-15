@@ -139,6 +139,24 @@ public partial class UnityHelper
 		}
 		return null;
 	}
+
+
+	public static void SetAllChildsRenderQueue(GameObject parentObj, int renderQueue = 3200)
+	{
+		if (parentObj == null) return;
+
+		var renderers = parentObj.GetComponentsInChildren<Renderer>(true);
+		for (int mdx = 0; mdx < renderers.Length; mdx++)
+		{
+			var render = renderers[mdx];
+			var matMax = render.materials.Length;
+			for (int tdx = 0; tdx < matMax; tdx++)
+			{
+				render.materials[tdx].renderQueue = renderQueue;
+			}
+		}
+	}
+
 	//public static void ResizeCUITableGridGameObjects(CUITableGrid uiTable, int resizeCount, GameObject templateForNew,
 	//	bool boxFixed = true)
 	//{

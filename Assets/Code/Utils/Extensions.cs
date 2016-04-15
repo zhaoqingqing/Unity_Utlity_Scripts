@@ -1,7 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+
 public static class Extensions
 {
 	public static Vector2 ToVector2(this Vector3 vec)
@@ -259,5 +261,18 @@ public static class Extensions
 	//		boxCollider.size = new Vector3(widget.width, widget.height, 0);
 	//	}
 	//}
+
+	public static void Identity(this Transform trans)
+	{
+		trans.localScale = Vector3.one;
+		trans.localPosition = Vector3.zero;
+		trans.localRotation = Quaternion.identity;
+	}
+
+	//.net4.0 stringbuild 会有Clear 函数，到时可以删掉这个函数
+	public static void Clear(this StringBuilder sb)
+	{
+		sb.Length = 0;
+	}
 
 }
