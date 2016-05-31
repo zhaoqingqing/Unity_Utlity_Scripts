@@ -16,7 +16,7 @@ public static class Extensions
 		byte ret = 0;
 		try
 		{
-			if (!string.IsNullOrEmpty(val))
+			if (!String.IsNullOrEmpty(val))
 			{
 				ret = Convert.ToByte(val);
 			}
@@ -32,7 +32,7 @@ public static class Extensions
 		long ret = 0;
 		try
 		{
-			if (!string.IsNullOrEmpty(val))
+			if (!String.IsNullOrEmpty(val))
 			{
 				ret = Convert.ToInt64(val);
 			}
@@ -48,7 +48,7 @@ public static class Extensions
 		float ret = 0;
 		try
 		{
-			if (!string.IsNullOrEmpty(val))
+			if (!String.IsNullOrEmpty(val))
 			{
 				ret = Convert.ToSingle(val);
 			}
@@ -65,7 +65,7 @@ public static class Extensions
 
 		try
 		{
-			if (!string.IsNullOrEmpty(str))
+			if (!String.IsNullOrEmpty(str))
 			{
 				ret = Convert.ToInt32(str);
 			}
@@ -231,7 +231,7 @@ public static class Extensions
 				}
 				catch (Exception)
 				{
-					if (arrElement is string && string.IsNullOrEmpty(arrElement as string))
+					if (arrElement is string && String.IsNullOrEmpty(arrElement as string))
 						ret = default(T);
 					else
 					{
@@ -269,10 +269,131 @@ public static class Extensions
 		trans.localRotation = Quaternion.identity;
 	}
 
-	//.net4.0 stringbuild 会有Clear 函数，到时可以删掉这个函数
+	/// <summary>
+	/// .net4.0 stringbuild 会有Clear 函数，到时可以删掉这个函数
+	/// </summary>
+	/// <param name="sb"></param>
 	public static void Clear(this StringBuilder sb)
 	{
 		sb.Length = 0;
 	}
 
+	/// <summary>
+	///  重置transform的localPosition,localEulerAngles为0,localScale为1
+	/// </summary>
+	/// <param name="trans"></param>
+	public static void ResetTransformLocal(this Transform trans)
+	{
+		trans.localPosition = Vector3.zero;
+		trans.localScale = Vector3.one;
+		trans.localEulerAngles = Vector3.zero;
+	}
+
+	public static void DestroyChildren(this Transform trans)
+	{
+		foreach (Transform child in trans)
+		{
+			GameObject.Destroy(child.gameObject);
+		}
+	}
+
+	public static Transform AddChildFromPrefab(this Transform trans, Transform prefab, string name = null)
+	{
+		if (prefab == null)
+		{
+			Debug.LogException(new Exception("prefab is null"));
+			return null;
+		}
+		Transform childTrans = GameObject.Instantiate(prefab) as Transform;
+		childTrans.SetParent(trans, false);
+		childTrans.ResetTransformLocal();
+		if (!string.IsNullOrEmpty(name))
+		{
+			childTrans.gameObject.name = name;
+		}
+		return childTrans;
+	}
+
+	/// <summary>
+	/// 尝试将键和值添加到字典中：如果不存在，才添加；存在，不添加也不抛导常
+	/// </summary>
+	public static Dictionary<TKey, TValue> TryAdd<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value)
+	{
+		if (dict.ContainsKey(key) == false) dict.Add(key, value);
+		return dict;
+	}
+
+	/// <summary>
+	/// 将键和值添加或替换到字典中：如果不存在，则添加；存在，则替换
+	/// </summary>
+	public static Dictionary<TKey, TValue> AddOrReplace<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value)
+	{
+		if (dict.ContainsKey(key) == false)
+		{
+			dict.Add(key, value);
+		}
+		else
+		{
+			dict[key] = value;
+		}
+		return dict;
+	}
+	
+	 /// <summary>
+    /// 获取所有的组件，不包括本身
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="trans"></param>
+    /// <param name="includeInactive"></param>
+    /// <returns></returns>
+    public static T[] GetComponentsInChildExceptSelf<T>(this Transform trans, [System.ComponentModel.DefaultValue("true")] bool includeInactive = true) where T:Component
+    {
+        var components = trans.GetComponentsInChildren(typeof(T), includeInactive);
+        var max = components.Length;
+        List<T> newList=new List<T>();
+        for (int idx = 0; idx < max; idx++)
+        {
+            if(components[idx].transform == trans)
+                continue;
+            newList.Add(components[idx] as T);
+        }
+        return newList.ToArray();
+    }
+
+    /// <summary>
+    /// 获取所有的组件，不包括本身
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj"></param>
+    /// <param name="includeInactive"></param>
+    /// <returns></returns>
+    public static T[] GetComponentsInChildExceptSelf<T>(this GameObject obj, [System.ComponentModel.DefaultValue("true")] bool includeInactive = true) where T : Component
+    {
+        var components = obj.GetComponentsInChildren(typeof(T), includeInactive);
+        var max = components.Length;
+        List<T> newList = new List<T>();
+        for (int idx = 0; idx < max; idx++)
+        {
+            if (components[idx].gameObject == obj)
+                continue;
+            newList.Add(components[idx] as T);
+        }
+        return newList.ToArray();
+    }
+	
+	public static List<Transform> GetChildsByName(this Transform parent, string includeName)
+	{
+		if (parent == null) return null;
+		var childCount = parent.childCount;
+		List<Transform> childs = new List<Transform>();
+		for (int idx = 0; idx < childCount; idx++)
+		{
+			var child = parent.GetChild(idx);
+			if (child != null && child.name.Contains(includeName))
+			{
+				childs.Add(child);
+			}
+		}
+		return childs;
+	}
 }
