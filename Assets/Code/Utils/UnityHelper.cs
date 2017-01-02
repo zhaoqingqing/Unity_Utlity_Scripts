@@ -156,7 +156,37 @@ public partial class UnityHelper
 			}
 		}
 	}
-
+	
+	public static void showFog(Color c)
+	{
+		RenderSettings.fog = true;
+		RenderSettings.fogColor = c;
+		RenderSettings.fogDensity = 0.02f;
+		RenderSettings.fogMode = FogMode.Linear;
+		RenderSettings.fogStartDistance = 35;
+		RenderSettings.fogEndDistance = 100;
+	}
+	
+	public static void showDarkFog()
+	{
+		RenderSettings.fog = true;
+		RenderSettings.fogColor = new Color(0,0,0,1);
+		RenderSettings.fogDensity = 0.02f;
+		RenderSettings.fogMode = FogMode.Linear;
+		RenderSettings.fogStartDistance = 15;
+		RenderSettings.fogEndDistance = 60;
+	}
+	
+	public static void setGameObjectRenderState(GameObject obj,bool b)
+	{
+		if(obj == null)
+			return;
+		obj.renderer.enabled = b;
+		for(int i = 0; i < obj.transform.childCount;++i)
+		{
+			setGameObjectRenderState(obj.transform.GetChild(i).gameObject,b);		
+		}
+	}
 	//public static void ResizeCUITableGridGameObjects(CUITableGrid uiTable, int resizeCount, GameObject templateForNew,
 	//	bool boxFixed = true)
 	//{
