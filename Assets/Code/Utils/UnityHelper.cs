@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 //using System.Diagnostics;
-using DG.Tweening;
+//using DG.Tweening;
 using SimpleJson;
 using UnityEngine;
 
@@ -32,7 +32,16 @@ public partial class UnityHelper
 		return list;
 	}
 
-	static public void SetParticleSystemScale(ParticleSystem particleSystem, float scale)
+    public static void DestoryAllChild(Transform parent)
+    {
+        if(parent == null) return;
+        foreach (Transform child in parent)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
+    static public void SetParticleSystemScale(ParticleSystem particleSystem, float scale)
 	{
 		particleSystem.startLifetime *= scale;
 		particleSystem.startSize *= scale;
