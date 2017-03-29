@@ -190,22 +190,59 @@ public partial class UnityHelper
 	{
 		if(obj == null)
 			return;
-		obj.renderer.enabled = b;
+		obj.GetComponent<Renderer>().enabled = b;
 		for(int i = 0; i < obj.transform.childCount;++i)
 		{
 			setGameObjectRenderState(obj.transform.GetChild(i).gameObject,b);		
 		}
 	}
-	//public static void ResizeCUITableGridGameObjects(CUITableGrid uiTable, int resizeCount, GameObject templateForNew,
-	//	bool boxFixed = true)
-	//{
-	//	_ResizeUIWidgetContainerGameObjects(uiTable.transform, resizeCount, templateForNew);
-	//	uiTable.Reposition();
-	//	if (boxFixed) MakeBoxFixed(uiTable);
-	//}
 
-	//以下部分代码需要导入Dotween 和NGUI
-	/*
+
+    //获取当前正在播放的AnimationClip
+
+    public static string GetCurrentPlayingAnimationClip(GameObject go)
+    {
+        if (go == null)
+        {
+            return String.Empty;
+        }
+        var animation = go.GetComponent<Animation>();
+        if (animation == null) return String.Empty;
+        foreach (AnimationState anim in animation)
+        {
+            if (animation.IsPlaying(anim.name))
+            {
+                return anim.name;
+            }
+        }
+        return String.Empty;
+    }
+
+    //获取指定AnimationClip的长度
+
+    public static float GetgAnimationClipLength(GameObject go, string animName)
+    {
+        if (go == null)
+        {
+            return 0;
+        }
+        var animation = go.GetComponent<Animation>();
+        if (animation == null) return 0;
+        var animClip = animation.GetClip(animName);
+        if (animation == null) return 0;
+        return animClip.length;
+    }
+
+    //public static void ResizeCUITableGridGameObjects(CUITableGrid uiTable, int resizeCount, GameObject templateForNew,
+    //	bool boxFixed = true)
+    //{
+    //	_ResizeUIWidgetContainerGameObjects(uiTable.transform, resizeCount, templateForNew);
+    //	uiTable.Reposition();
+    //	if (boxFixed) MakeBoxFixed(uiTable);
+    //}
+
+    //以下部分代码需要导入Dotween 和NGUI
+    /*
 	public static void _ResizeUIWidgetContainerGameObjects(Transform transf, int resizeCount, GameObject templateForNew)
 	{
 		if (templateForNew == null)

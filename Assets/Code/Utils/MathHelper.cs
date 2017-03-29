@@ -4,6 +4,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// 数学相关
+/// </summary>
 public class MathHelper
 {
 	/// <summary>
