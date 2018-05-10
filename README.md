@@ -1,37 +1,37 @@
-##说明
+##  说明
 这个库包含两部分：
 
 - Unity编辑器的扩展脚本(在每个插件的目录中都有对应的功能预览图片(preview结尾))
 - 常用的一些工具类提取(具体解释请参考源码)
 
-##AlignEditor
+## AlignEditor
 
 工作过程中写的一个对齐小插件，方便在开发中对Gameobject进行排列
 ![](https://github.com/zhaoqingqing/Unity_Editor_Scripts/blob/master/Assets/Editor/AlignEditor/AlignEditor_preview.jpg)
-##UnityLock
+## UnityLock
 AssetStore上的一个免费小插件，可以锁定Gameobject不可编辑
 ![](https://github.com/zhaoqingqing/Unity_Editor_Scripts/blob/master/Assets/Editor/UnityLock/UnityLock-preview.jpg)
 
-##EditorStyleViewer
+## EditorStyleViewer
 查看编辑器默认的样式
 ![](https://github.com/zhaoqingqing/Unity_Editor_Scripts/blob/master/Assets/Editor/Tools/TransformContextMenu-preview.jpg)
 
 
-## Resource-Checker 
+##  Resource-Checker 
 
 出处：[https://github.com/handcircus/Unity-Resource-Checker](https://github.com/handcircus/Unity-Resource-Checker)
 
 需要Unity4.6及更高的版本
 
 <hr>
-##Dotween
+## Dotween
 Dotween:fork from  [https://github.com/Demigiant/dotween](https://github.com/Demigiant/dotween)
 
-##SimpleJson
-##运行环境
+## SimpleJson
+## 运行环境
 建议导入NGUI，DoTween；Unity5.x
 
-##常用的工具类说明
+## 常用的工具类说明
 ### ColorHelper 
 颜色辅助类，包括NGUI的十六进制颜色
 
